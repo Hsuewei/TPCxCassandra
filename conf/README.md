@@ -14,18 +14,34 @@ cassandra-topology.properties: used by PropertyFileSnitch
 ```
 
 # Modification under conf/
-## cassandra.yaml
 ## cassandra-env.sh
+
+## cassandra.yaml
+```node01```
 parameter | modified value   
 ----------| ---------------
 cluster_name| 'cassandraCluster'
 num_tokens| 128(node01)<br>256(node02,node03,node04)
-data_file_directory| $CASSANDRA_HOME/data/data
+data_file_directories| $CASSANDRA_HOME/data/data
 seed_provider.<br>org.apache.cassandra.locator.SimpleSeedProvider.<br>paramters.seeds | "10.106.51.152,10.106.51.150" 
 concurrent_reads | 16(node01)<br>96(node02,node03,node04)
 concurrent_writes | 384
 concurrent_counter_writes | 16(node01)<br>96(node02,node03,node04)
 memtable_heap_space_in_mb | (node01)<br>16384(node02,node03,node04)
 memtable_offheap_space_in_mb | (node01)<br>16384(node02,node03,node04)
-listen_address|10.106.51.152 node01 <br> 10.106.51.149 node02 <br> 10.106.51.150 node03 <br> 10.106.51.151 node04|
+listen_address| 10.106.51.152 
+
+```node02```,```node03```,```node04```
+parameter | modified value
+----------| ---------------
+cluster_name| 'cassandraCluster'
+num_tokens| 256
+data_file_directories| $CASSANDRA_HOME/data/data
+seed_provider.<br>org.apache.cassandra.locator.SimpleSeedProvider.<br>paramters.seeds | "10.106.51.152,10.106.51.150"
+concurrent_reads | 96
+concurrent_writes | 384
+concurrent_counter_writes | 96
+memtable_heap_space_in_mb | 16384
+memtable_offheap_space_in_mb | 16384
+listen_address | [^first]
 

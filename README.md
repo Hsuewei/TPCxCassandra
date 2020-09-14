@@ -33,6 +33,7 @@ RHEL 7.5 | apapche-Cassandra-3.11.8| OpenJDK1.8
 
 ## Host Info
 hostname | IP | DC(data center) | rack number
+--------|----|------------------|-----------
 node01 | 10.106.51.152 | dc1 | rack1
 node02 | 10.106.51.149 | dc1 | rack2
 node03 | 10.106.51.150 | dc2 | rack1
