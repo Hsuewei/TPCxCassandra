@@ -43,7 +43,7 @@ concurrent_writes | 384
 concurrent_counter_writes | 96
 memtable_heap_space_in_mb | 16384
 memtable_offheap_space_in_mb | 16384
-listen_address | <a name="myfootnote1">1</a>: Footnote content goes here
+listen_address | <a name="myfootnote1">FootNote1</a>
 
-<sup>[1](#myfootnote1)</sup>
+<sup>[1](#myfootnote1)</sup>: please refer to *host_info* part for ip mapping
 
