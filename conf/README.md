@@ -46,5 +46,5 @@ memtable_offheap_space_in_mb | 16384
 listen_address | <a name="myfootnote1">1</a>
 
 
-> <sup>[1](#myfootnote1)</sup>: please refer to *host_info* part for ip mapping
+<sup>[1](#myfootnote1)</sup>: please refer to *host_info* part for ip mapping
 
