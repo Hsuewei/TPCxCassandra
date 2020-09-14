@@ -43,5 +43,7 @@ concurrent_writes | 384
 concurrent_counter_writes | 96
 memtable_heap_space_in_mb | 16384
 memtable_offheap_space_in_mb | 16384
-listen_address | [^first]
+listen_address | <a name="myfootnote1">1</a>: Footnote content goes here
+
+<sup>[1](#myfootnote1)</sup>
 
