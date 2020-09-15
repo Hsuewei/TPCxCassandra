@@ -17,7 +17,7 @@ cassandra-topology.properties: used by PropertyFileSnitch
 ## cassandra-env.sh
 
 ## cassandra.yaml
-```node01```
+### ```node01```
 parameter | modified value   
 ----------| ---------------
 cluster_name| 'cassandraCluster'
@@ -31,7 +31,8 @@ memtable_heap_space_in_mb |
 memtable_offheap_space_in_mb | 
 listen_address| 10.106.51.152 
 
-```node02```,```node03```,```node04```
+
+### ```node02```,```node03```,```node04```
 parameter | modified value
 ----------| ---------------
 cluster_name| 'cassandraCluster'
@@ -46,6 +47,7 @@ memtable_offheap_space_in_mb | 16384
 listen_address | <sup>[1](#footnote1)</sup>
 
  
- <a name="footnote1">please refer to *host_info* part for ip mapping</a>
 
-
+---
+# Foot Notes:
+### 1:  <a name="footnote1">please refer to *host_info* part for ip mapping</a>
