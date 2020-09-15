@@ -52,34 +52,57 @@ node04 | 10.106.51.151 | dc2 | rack2
 #### Tarball download
 ```shell
 # Cassandra 3.11.8
-wget http://ftp.mirror.tw/pub/apache/cassandra/3.11.8/apache-cassandra-3.11.8-bin.tar.gz
+wget http://ftp.mirror.tw/pub/apache/cassandra/3.11.8/apache-cassandra-3.11.8-bin.tar.gz -P ~
 ```
 ### Environment Set-up
 #### Set Java Home
+Could find OpenJDK through [here](https://openjdk.java.net/install/)
+```shell
+vim /etc/profile
+```
+``` shell
+export JAVA_HOME=/usr/java/jdk1.8.0_202-amd64
+export JRE_HOME=$JAVA_HOME/jre
+export PATH=$JAVA_HOME/bin:$JRE_HOME/bin:$PATH
+export CLASSPATH=$CLASSPATH:.:$JAVA_HOME/lib:$JRE_HOME/lib
+```
+
 #### disable firewalld
+``` shell
+systemctl stop firewalld
+systemctl disable firewalld
+
 #### Set up LVM and set up $CASSANDRA_HOME
 ```node01``` : Use OS disk's **/home** partition as $CASSANDRA_HOME
 ``` shell
-# create dir
-mkdir /home/cassandra
-cd /
-ln -s /home/cassandra
-# adduser 
-adduser cassandra --no-create-home
+# establish CASSANDRA_HOME
+mkdir /home/cassandra;cd /;ln -s /home/cassandra;adduser cassandra --no-create-home
+# untar cassandra
+tar -xvf /root/apache-cassandra-3.11.8-bin.tar.gz -C /cassandra;mv /cassandra/apache-cassandra-3.11.8/* ./../;rm -rf /cassandra/apache-cassandra-3.11.8/
+chmod -R cassandra:cassandra /home/cassandra;chmod -R cassandra:cassandra /cassandra
 ```
 
 ```node02```,```node03```,```node04``` : Raid-5 on 7 SSD as $CASSANDRA_HOME
 ``` shell
+# establish CASSANDRA_HOME
+mkdir /cassandra
+adduser cassandra --no-create-home
 # LVM
 pvcreate /dev/sda;pvcreate /dev/sdb;pvcreate /dev/sdc;pvcreate /dev/sdd;pvcreate /dev/sde;pvcreate /dev/sdf;pvcreate /dev/sdg
 vgcreate --dataalignment 128K --physicalextentsize 4096K cassandra-data /dev/sda /dev/sdb /dev/sdc /dev/sdd /dev/sde /dev/sdf /dev/sdg
 lvcreate --type raid5 -i 6 -I 64K -l 100%FREE -n storage cassandra-data
+# FS
 mkfs.xfs -b size=4096 -d su=64k,sw=6 /dev/mapper/cassandra--data-storage
-# create dir
-mkdir /cassandra
-# create user
-adduser cassandra --no-create-home
+mount /dev/mapper/cassandra--data-storage /cassandra
+# untar cassandra
+tar -xvf /root/apache-cassandra-3.11.8-bin.tar.gz -C /cassandra;mv /cassandra/apache-cassandra-3.11.8/* ./../;rm -rf /cassandra/apache-cassandra-3.11.8/
+chmod -R cassandra:cassandra /cassandra
 ```
+#### Cassandra-related configuration
+> Please refer to [conf/\*](conf/) for more detailed configuration
+
+#### Running Cassandra as daemon
+> Please use [conf/init.d/cassandra](conf/init.d/cassandra) as a template and place it under  ```/etc/init.d/```
 
 
 
