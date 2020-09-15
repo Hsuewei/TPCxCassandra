@@ -33,11 +33,14 @@ use mock Taiwan power company and get familiar with Cassandra
   - QuantaMesh T1048-LB9 : 1
     - cables: 1G Cat5e CABLE - 2m: 4
 
+---
 
 ## Software Info
 OS | Application | Java
 ---|------------|----
 RHEL 7.5 | apapche-Cassandra-3.11.8| OpenJDK1.8
+
+---
 
 ## Host Info
 hostname | IP | DC(data center) | rack number
@@ -48,6 +51,8 @@ node03 | 10.106.51.150 | dc2 | rack1
 node04 | 10.106.51.151 | dc2 | rack2
 
 > ```node01``` only equipped with 1 SSD and 4 16G-memory
+
+---
 
 ## Deployment
 
@@ -116,6 +121,7 @@ chmod -R cassandra:cassandra /cassandra
 >> Also give cassandra init file permission
 >>> chmod 755 /etc/init.d/cassandra
 
+---
 
 ## Establish test dataset
 ### generate raw data
@@ -135,5 +141,7 @@ mkdir -p /home/source/after
 # start transforming
 sh data-transformer /home/source /home/source/after 
 ```
+### create table and import
+> Please refer to [createTable.cql](scripts/) for details
 
 
