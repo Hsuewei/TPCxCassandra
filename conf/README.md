@@ -29,8 +29,7 @@ concurrent_writes | 384
 concurrent_counter_writes | 16
 memtable_heap_space_in_mb | 
 memtable_offheap_space_in_mb | 
-listen_address| 10.106.51.152 
-
+listen_address| <sup>[1](#footnote1)</sup>
 
 ### ```node02```,```node03```,```node04```
 parameter | modified value
