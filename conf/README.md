@@ -17,7 +17,7 @@ cassandra-topology.properties: used by PropertyFileSnitch
 * [cassandra.yaml](#cassandra-yaml)
 * [cassandra-env.sh](#cassandra-env-sh)
 * [cassandra-rackdc.properties](#cassandra-rackdc-properties)
-* [jvm.options](jvm-options)
+* [jvm.options](#jvm-options)
 
 
 ## ref:
