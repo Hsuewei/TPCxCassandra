@@ -13,7 +13,13 @@ Optional configuration files
 cassandra-topology.properties: used by PropertyFileSnitch
 ```
 ---
-# Modification 
+# Modification
+* [cassandra.yaml](#cassandra-yaml)
+* [cassandra-env.sh](#cassandra-env-sh)
+* [cassandra-rackdc.properties](#cassandra-rackdc-properties)
+* [jvm.options](jvm-options)
+
+
 ## ref:
 1. [Cassandra.yaml configuration](https://docs.datastax.com/en/cassandra-oss/3.x/cassandra/configuration/configCassandra_yaml.html)
 2. [Configure Cassandra Heap Dump](https://docs.datastax.com/en/ddac/doc/datastax_enterprise/config/configHeapDump.html)
