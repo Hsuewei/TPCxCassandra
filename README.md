@@ -15,6 +15,10 @@ use mock Taiwan power company and get familiar with Cassandra
         * [Modify Cassandra-related configuration](#modify-cassandra-related-configuration)
         * [Running Cassandra as daemon](#running-cassandra-as-daemon)
 * [Establish test dataset](#establish-test-dataset)
+    * [generate raw data](#generate-raw-data)
+    * [transform raw data](#transform-raw-data)
+    * [create table and import](#create-table-and-import)
+* [query](#query)
 
 
 
