@@ -128,20 +128,25 @@ chmod -R cassandra:cassandra /cassandra
 > Java is required. OpenJDK 1.8 or newer are prefered
 ``` shell
 # create place for dataset
-mkdir -p /home/source
+mkdir -p /cassandra/sourceData
 # generate 500 customer, 3 years dataset
-java -jar lpgen.jar 1 500 3 /home/source
+java -jar lpgen.jar 1 500 3 /cassandra/sourceDate
 ```
 ### transform raw data
 It will take about 2 hours.
-> Pleae refer to [data-transformer.sh](scripts/) for details
+> Pleae refer to [data-transformer.sh](scripts/data-transformer.sh) for details
 ``` shell
 # create place for transformed data
-mkdir -p /home/source/after
+mkdir -p /cassandra/sourceDate/after
 # start transforming
-sh data-transformer /home/source /home/source/after 
+sh data-transformer /cassandra/sourceData /cassandra/sourceData/after
 ```
 ### create table and import
-> Please refer to [createTable.cql](scripts/) for details
+it will take about 4 hours
+> Please refer to [createTable.cql](scripts/createTable.cql) for details
+``` shell
+/cassandra/bin/cqlsh -f createTable.cql
+```
 
-
+## query
+> Please refer to [query.cql](scripts/query.cql) for details
