@@ -8,6 +8,13 @@ use mock Taiwan power company and get familiar with Cassandra
 * [Deployment](#deployment)
     * [Topology](#topology)
     * [Install Cassandra](#install-cassandra)
+    * [Environment Set-up](#environment-set-up)
+        * [Set Java Home](set-java-home)
+        * [disable firewalld](disable-firewalld)
+        * [Set up LVM and set up $CASSANDRA_HOME](set-up-lvm-and-set-up-$cassandra_home)
+        * [Modify Cassandra-related configuration](modify-cassandra-related-configuration)
+        * [Running Cassandra as daemon](running-cassandra-as-daemon)
+
 
 
 ## Hardware Info
@@ -60,6 +67,7 @@ Could find OpenJDK through [here](https://openjdk.java.net/install/)
 ```shell
 vim /etc/profile
 ```
+add following lines
 ``` shell
 export JAVA_HOME=/usr/java/jdk1.8.0_202-amd64
 export JRE_HOME=$JAVA_HOME/jre
