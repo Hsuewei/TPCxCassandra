@@ -30,15 +30,17 @@ cassandra-topology.properties: used by PropertyFileSnitch
 parameter | modified value   
 ----------| ---------------
 cluster_name| 'cassandraCluster'
-num_tokens| 128(node01)<br>256(node02,node03,node04)
+num_tokens| 128
 data_file_directories| $CASSANDRA_HOME/data/data
 seed_provider.<br>org.apache.cassandra.locator.SimpleSeedProvider.<br>paramters.seeds | "10.106.51.152,10.106.51.150" 
-concurrent_reads | 16(node01)<br>96(node02,node03,node04)
+concurrent_reads | 16
 concurrent_writes | 384
 concurrent_counter_writes | 16
 memtable_heap_space_in_mb | 
 memtable_offheap_space_in_mb | 
 listen_address| <sup>[1](#footnote1)</sup>
+endpoint_snitch | GossipingPropertyFileSnitch
+enable_user_defined_functions | true
 
 ### ```node02```,```node03```,```node04```
 parameter | modified value
@@ -53,6 +55,8 @@ concurrent_counter_writes | 96
 memtable_heap_space_in_mb | 16384
 memtable_offheap_space_in_mb | 16384
 listen_address | <sup>[1](#footnote1)</sup>
+endpoint_snitch | GossipingPropertyFileSnitch
+enable_user_defined_functions | true
 
 ---
 ## cassandra-env.sh
