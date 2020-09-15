@@ -14,6 +14,7 @@ use mock Taiwan power company and get familiar with Cassandra
         * [Set up LVM and set up $CASSANDRA_HOME](#set-up-lvm-and-set-up-cassandra_home)
         * [Modify Cassandra-related configuration](#modify-cassandra-related-configuration)
         * [Running Cassandra as daemon](#running-cassandra-as-daemon)
+* [Establish test dataset](#establish-test-dataset)
 
 
 
@@ -116,6 +117,23 @@ chmod -R cassandra:cassandra /cassandra
 >>> chmod 755 /etc/init.d/cassandra
 
 
-
+## Establish test dataset
+### generate raw data
+> Java is required. OpenJDK 1.8 or newer are prefered
+``` shell
+# create place for dataset
+mkdir -p /home/source
+# generate 500 customer, 3 years dataset
+java -jar lpgen.jar 1 500 3 /home/source
+```
+### transform raw data
+It will take about 2 hours.
+> Pleae refer to [data-transformer.sh](scripts/) for details
+``` shell
+# create place for transformed data
+mkdir -p /home/source/after
+# start transforming
+sh data-transformer /home/source /home/source/after 
+```
 
 
