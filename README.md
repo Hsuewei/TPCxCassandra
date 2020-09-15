@@ -71,6 +71,7 @@ export CLASSPATH=$CLASSPATH:.:$JAVA_HOME/lib:$JRE_HOME/lib
 ``` shell
 systemctl stop firewalld
 systemctl disable firewalld
+```
 
 #### Set up LVM and set up $CASSANDRA_HOME
 ```node01``` : Use OS disk's **/home** partition as $CASSANDRA_HOME
@@ -98,11 +99,13 @@ mount /dev/mapper/cassandra--data-storage /cassandra
 tar -xvf /root/apache-cassandra-3.11.8-bin.tar.gz -C /cassandra;mv /cassandra/apache-cassandra-3.11.8/* ./../;rm -rf /cassandra/apache-cassandra-3.11.8/
 chmod -R cassandra:cassandra /cassandra
 ```
-#### Cassandra-related configuration
+#### Modify Cassandra-related configuration
 > Please refer to [conf/\*](conf/) for more detailed configuration
 
 #### Running Cassandra as daemon
 > Please use [conf/init.d/cassandra](conf/init.d/cassandra) as a template and place it under  ```/etc/init.d/```
+>> Also give cassandra init file permission
+>>> chmod 755 /etc/init.d/cassandra
 
 
 
