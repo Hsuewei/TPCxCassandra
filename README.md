@@ -92,6 +92,9 @@ systemctl disable firewalld
 ```
 
 #### Set up LVM and set up $CASSANDRA_HOME
+##### ref:
+- [LAB: LVM and mkfs.xfs](https://hackmd.io/bqFv-S3JTtm_j8tsnC_j7A#Lab-LVM-and-mkfsxfs)
+
 ```node01``` : Use OS disk's **/home** partition as $CASSANDRA_HOME
 ``` shell
 # establish CASSANDRA_HOME
