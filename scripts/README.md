@@ -12,6 +12,7 @@ Comment:
 
 # How I transform data?
 > Please refer to [data-transformer.sh](data-transformer.sh) for details
+
 This script will do the following things:
 - rearrange raw data columns' order
 - trim double quotes
