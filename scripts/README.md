@@ -13,11 +13,11 @@ Comment:
 # How I transform data?
 > Please refer to [data-transformer.sh](data-transformer.sh) for details
 Comments:
-1. This script will do the following things:
-  - rearrange raw data columns' order
-  - trim double quotes
-  - trim ^M (carraiage return) from windows .csv files
-  - alter the timestamp foramt to meet Cassandra's [standard](https://cassandra.apache.org/doc/latest/cql/types.html/)
+This script will do the following things:
+    - rearrange raw data columns' order
+    - trim double quotes
+    - trim ^M (carraiage return) from windows .csv files
+    - alter the timestamp foramt to meet Cassandra's [standard](https://cassandra.apache.org/doc/latest/cql/types.html/)
 
 # How I query?
 > Please refer to [query.cql](query.cql) for details
