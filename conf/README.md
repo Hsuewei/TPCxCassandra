@@ -129,4 +129,4 @@ node04 | dc=dc2<br>rack=rack2
 
 ---
 # Foot Notes:
-### 1:  <a name="footnote1">please refer to *host_info* part for ip mapping</a>
+1:  <a name="footnote1">please refer to *host_info* part for ip mapping</a>
