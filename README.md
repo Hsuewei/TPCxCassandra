@@ -121,6 +121,10 @@ systemctl disable firewalld
    ``` bash
    chmod 755 /etc/init.d/cassandra
    ```
+- start
+   ``` bash
+   service cassandra start
+   ```
 ---
 
 ## Establish test dataset
