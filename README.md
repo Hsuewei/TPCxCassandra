@@ -59,25 +59,19 @@ node04 | 10.106.51.151 | dc2 | rack2
 ---
 
 ## Deployment
-
-### Topology
-![](images/nodes.png)
-
 ### Install Cassandra
-#### ref:
-   - [apach Cassabdra installation](https://cassandra.apache.org/doc/latest/getting_started/installing.html)
-#### Tarball download
-```shell
-# Cassandra 3.11.8
-wget http://ftp.mirror.tw/pub/apache/cassandra/3.11.8/apache-cassandra-3.11.8-bin.tar.gz -P ~
-```
+> ref: [apach Cassabdra installation](https://cassandra.apache.org/doc/latest/getting_started/installing.html)
+- Tarball download
+   ```shell
+   # Cassandra 3.11.8
+   wget http://ftp.mirror.tw/pub/apache/cassandra/3.11.8/apache-cassandra-3.11.8-bin.tar.gz -P ~
+   ```
 ### Environment Set-up
 #### Set Java Home
 Could find OpenJDK through [here](https://openjdk.java.net/install/)
 ```shell
 vim /etc/profile
 ```
-add following lines
 ``` shell
 export JAVA_HOME=/usr/java/jdk1.8.0_202-amd64
 export JRE_HOME=$JAVA_HOME/jre
@@ -92,42 +86,41 @@ systemctl disable firewalld
 ```
 
 #### Set up LVM and set up $CASSANDRA_HOME
-##### ref:
-- [LAB: LVM and mkfs.xfs](https://hackmd.io/bqFv-S3JTtm_j8tsnC_j7A#Lab-LVM-and-mkfsxfs)
+> ref: [LAB: LVM and mkfs.xfs](https://hackmd.io/bqFv-S3JTtm_j8tsnC_j7A#Lab-LVM-and-mkfsxfs)
 
-```node01``` : Use OS disk's **/home** partition as $CASSANDRA_HOME
-``` shell
-# establish CASSANDRA_HOME
-mkdir /home/cassandra;cd /;ln -s /home/cassandra;adduser cassandra --no-create-home
-# untar cassandra
-tar -xvf /root/apache-cassandra-3.11.8-bin.tar.gz -C /cassandra;mv /cassandra/apache-cassandra-3.11.8/* ./../;rm -rf /cassandra/apache-cassandra-3.11.8/
-chmod -R cassandra:cassandra /home/cassandra;chmod -R cassandra:cassandra /cassandra
-```
-
-```node02```,```node03```,```node04``` : Raid-5 on 7 SSD as $CASSANDRA_HOME
-``` shell
-# establish CASSANDRA_HOME
-mkdir /cassandra
-adduser cassandra --no-create-home
-# LVM
-pvcreate /dev/sda;pvcreate /dev/sdb;pvcreate /dev/sdc;pvcreate /dev/sdd;pvcreate /dev/sde;pvcreate /dev/sdf;pvcreate /dev/sdg
-vgcreate --dataalignment 128K --physicalextentsize 4096K cassandra-data /dev/sda /dev/sdb /dev/sdc /dev/sdd /dev/sde /dev/sdf /dev/sdg
-lvcreate --type raid5 -i 6 -I 64K -l 100%FREE -n storage cassandra-data
-# FS
-mkfs.xfs -b size=4096 -d su=64k,sw=6 /dev/mapper/cassandra--data-storage
-mount /dev/mapper/cassandra--data-storage /cassandra
-# untar cassandra
-tar -xvf /root/apache-cassandra-3.11.8-bin.tar.gz -C /cassandra;mv /cassandra/apache-cassandra-3.11.8/* ./../;rm -rf /cassandra/apache-cassandra-3.11.8/
-chmod -R cassandra:cassandra /cassandra
-```
+1. `node01` Use OS disk's **/home** partition as $CASSANDRA_HOME
+   ``` bash
+   # establish CASSANDRA_HOME
+   mkdir /home/cassandra;cd /;ln -s /home/cassandra;adduser cassandra --no-create-home
+   # untar cassandra
+   tar -xvf /root/apache-cassandra-3.11.8-bin.tar.gz -C /cassandra;mv /cassandra/apache-cassandra-3.11.8/* ./../;rm -rf /cassandra/apache-cassandra-3.11.8/
+   chmod -R cassandra:cassandra /home/cassandra;chmod -R cassandra:cassandra /cassandra
+   ```
+2. `node02`,`node03`,`node04` Raid-5 on 7 SSD as $CASSANDRA_HOME
+   ``` bash
+   # establish CASSANDRA_HOME
+   mkdir /cassandra
+   adduser cassandra --no-create-home
+   # LVM
+   pvcreate /dev/sda;pvcreate /dev/sdb;pvcreate /dev/sdc;pvcreate /dev/sdd;pvcreate /dev/sde;pvcreate /dev/sdf;pvcreate /dev/sdg
+   vgcreate --dataalignment 128K --physicalextentsize 4096K cassandra-data /dev/sda /dev/sdb /dev/sdc /dev/sdd /dev/sde /dev/sdf /dev/sdg
+   lvcreate --type raid5 -i 6 -I 64K -l 100%FREE -n storage cassandra-data
+   # FS
+   mkfs.xfs -b size=4096 -d su=64k,sw=6 /dev/mapper/cassandra--data-storage
+   mount /dev/mapper/cassandra--data-storage /cassandra
+   # untar cassandra
+   tar -xvf /root/apache-cassandra-3.11.8-bin.tar.gz -C /cassandra;mv /cassandra/apache-cassandra-3.11.8/* ./../;rm -rf /cassandra/apache-cassandra-3.11.8/
+   chmod -R cassandra:cassandra /cassandra
+   ```
 #### Modify Cassandra-related configuration
-> Please refer to [conf/\*](conf/) for more detailed configuration
+- Please refer to [conf/\*](conf/) for more detailed configuration
 
 #### Running Cassandra as daemon
-> Please use [conf/init.d/cassandra](conf/init.d/cassandra) as a template and place it under  ```/etc/init.d/```
->> Also give cassandra init file permission
->>> chmod 755 /etc/init.d/cassandra
-
+- Please use [conf/init.d/cassandra](conf/init.d/cassandra) as a template and place it under  ```/etc/init.d/```
+- Also give cassandra init file permission
+   ``` bash
+   chmod 755 /etc/init.d/cassandra
+   ```
 ---
 
 ## Establish test dataset
@@ -136,24 +129,28 @@ chmod -R cassandra:cassandra /cassandra
 ``` shell
 # create place for dataset
 mkdir -p /cassandra/sourceData
-# generate 500 customer, 3 years dataset
+# generate 500 customer, 3-years of meter dataset
 java -jar lpgen.jar 1 500 3 /cassandra/sourceDate
 ```
 ### transform raw data
-It will take about 2 hours.
-> Pleae refer to [data-transformer.sh](scripts/data-transformer.sh) for details
-``` shell
-# create place for transformed data
-mkdir -p /cassandra/sourceDate/after
-# start transforming
-sh data-transformer /cassandra/sourceData /cassandra/sourceData/after
-```
+1. It will take about 2 hours.
+2. Pleae refer to [data-transformer.sh](scripts/data-transformer.sh) for details
+   ``` shell
+   # create place for transformed data
+   mkdir -p /cassandra/sourceDate/after
+   # start transforming
+   sh data-transformer /cassandra/sourceData /cassandra/sourceData/after
+   ```
 ### create table and import
-it will take about 4 hours
-> Please refer to [createTable.cql](scripts/createTable.cql) for details
-``` shell
-/cassandra/bin/cqlsh -f createTable.cql
-```
+1. it will take about 4 hours
+2. Please refer to [createTable.cql](scripts/createTable.cql) for details
+   ``` shell
+   /cassandra/bin/cqlsh -f createTable.cql
+   ```
 
 ## query
-> Please refer to [query.cql](scripts/query.cql) for details
+1. Please refer to [query.cql](scripts/query.cql) for details
+   ``` bash
+   # estimate the execution time
+   time /path/to/cassandra/bin/cqlsh -f /path/to/query.cql
+   ```
